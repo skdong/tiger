@@ -22,6 +22,10 @@ func numberOfSubarraysQueue(nums []int, k int) int {
 	return count
 }
 
+func numberOfSubarrays(nums []int, k int) int {
+	return numberOfSubarraysQueue(nums, k)
+}
+
 func numberOfSubarraysMap(nums []int, k int) int {
 	attr := make([]int, len(nums)+1)
 	count := 0

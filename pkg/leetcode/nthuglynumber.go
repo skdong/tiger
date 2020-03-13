@@ -28,5 +28,6 @@ func nthUglyNumberU(n int, a int, b int, c int) int {
 	} else if b > c {
 		b, c = c, b
 	}
+	return n
 
 }
