@@ -31,6 +31,7 @@ func changeNum(l1, l2 []int) int {
 				continue
 			}
 			for k := 0; k <= i && k < n; k++ {
+
 				if i > 0 && k > 0 && j >= l[i] && dp[i-1][j][k] < dp[i-1][j-l[i]][k-1]+l[i] {
 					dp[i][j][k] = dp[i-1][j-l[i]][k-1] + l[i]
 				} else if i > 0 {
