@@ -2,6 +2,8 @@ package dp
 
 import "fmt"
 
+//https://www.cnblogs.com/fengziwei/p/7750849.html
+
 func bag(w, v []int, j int) int {
 	dp := make([][]int, len(w))
 	for i := 0; i < len(w); i++ {

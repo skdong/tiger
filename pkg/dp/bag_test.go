@@ -31,7 +31,7 @@ func TestBag(t *testing.T) {
 	cases := initCases()
 	for _, c := range cases {
 
-		r := compressBag(c.w, c.v, c.j)
+		r := bag(c.w, c.v, c.j)
 		if r != c.d {
 			t.Fatalf("real is %d desire is %d", r, c.d)
 		}

@@ -1,7 +1,8 @@
 package dp
 
+//https://blog.csdn.net/qq_33935895/article/details/103029767
+
 func changeNum(l1, l2 []int) int {
-	ans := 0
 	n := len(l1)
 	l := make([]int, n*2)
 	min := l1[0]
@@ -18,7 +19,7 @@ func changeNum(l1, l2 []int) int {
 		sum += l1[i] - min
 		sum += l2[i] - min
 		l[i] = l1[i] - min
-		l[i+n] = l[2] - min
+		l[i+n] = l2[i] - min
 	}
 	sum = sum / 2
 
@@ -45,5 +46,56 @@ func changeNum(l1, l2 []int) int {
 		}
 	}
 
-	return ans
+	ans := sum - dp[2*n-1][sum][n-1]
+	if ans < 0 {
+		ans *= -1
+	}
+	return ans * 2
+}
+
+func changeNumCompress(l1, l2 []int) int {
+	n := len(l1)
+	l := make([]int, n*2)
+	min := l1[0]
+	for i := 0; i < n; i++ {
+		if l1[i] < min {
+			min = l1[i]
+		}
+		if l2[i] < min {
+			min = l2[i]
+		}
+	}
+	sum := 0
+	for i := 0; i < n; i++ {
+		sum += l1[i] - min
+		sum += l2[i] - min
+		l[i] = l1[i] - min
+		l[i+n] = l2[i] - min
+	}
+	sum = sum / 2
+
+	dp := make([][]int, sum+1)
+	for i := 0; i < 2*n; i++ {
+		for j := sum; j >= 0; j-- {
+			if dp[j] == nil {
+				dp[j] = make([]int, n)
+			}
+			if j < l[i] {
+				continue
+			}
+			for k := 0; k <= i && k < n; k++ {
+				if k > 0 && j >= l[i] && dp[j][k] < dp[j-l[i]][k-1]+l[i] {
+					dp[j][k] = dp[j-l[i]][k-1] + l[i]
+				} else if k == 0 && j >= l[i] && l[i] > dp[j][k] {
+					dp[j][k] = l[i]
+				}
+			}
+		}
+	}
+
+	ans := sum - dp[sum][n-1]
+	if ans < 0 {
+		ans *= -1
+	}
+	return ans * 2
 }
